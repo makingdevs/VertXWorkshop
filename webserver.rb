@@ -1,16 +1,16 @@
 require "vertx"
-include Vertx
 
-server = HttpServer.new
+#server = HttpServer.new
+#server.request_handler { |req| req.response.send_file("index.html") if req.uri == "/"}
+#server.listen(8080)
 
-server.request_handler { |req|
-  req.response.send_file("index.html") if req.uri == "/"
-  req.response.send_file("bower_components/bower-sockjs-client/sockjs.js") if req.uri == "/sockjs.js"
-  req.response.send_file("bower_components/vertxbus/vertxbus.js") if req.uri == "/vertxbus.js"
+web_server_conf = {
+  'port' => 8000,
+  'host' => 'localhost',
+  'bridge' => '/eventbus'
 }
 
-sockJSServer = SockJSServer.new(server)
-sockJSServer.bridge({'prefix' => '/eventbus'}, [], [])
 server.listen(8080)
 
+Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
 Vertx.deploy_verticle("list_verticle.groovy")
