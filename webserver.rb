@@ -7,10 +7,8 @@ require "vertx"
 web_server_conf = {
   'port' => 8000,
   'host' => 'localhost',
-  'bridge' => '/eventbus'
+  'bridge' => true
 }
-
-server.listen(8080)
 
 Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
 Vertx.deploy_verticle("list_verticle.groovy")
