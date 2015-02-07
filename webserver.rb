@@ -14,5 +14,5 @@ web_server_conf = {
   "outbound_permitted" => []
 }
 
-Vertx.deploy_verticle("list_verticle.groovy")
+Vertx.deploy_verticle("boardVerticle.groovy")
 Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
