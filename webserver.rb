@@ -7,7 +7,10 @@ require "vertx"
 web_server_conf = {
   'port' => 8000,
   'host' => 'localhost',
-  'bridge' => true
+  'bridge' => true,
+  "inbound_permitted" => [
+    {"address" => "board.list"}
+  ],
 }
 
 Vertx.deploy_verticle("list_verticle.groovy")
