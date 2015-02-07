@@ -128,9 +128,15 @@
         eb.onopen = function() {
           console.log("open");
 
-          eb.send("board.list", {}, function(message) {
+          eb.send("board.task.list", {}, function(message) {
             console.log(message);
           });
+
+          eb.send("board.task.add", {
+            title: "Título uno",
+            description: "descripción"
+          });
+
         };
 
         eb.onclose = function() {
