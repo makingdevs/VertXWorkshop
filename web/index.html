@@ -135,6 +135,8 @@
           eb.send("board.task.add", {
             title: "Título uno",
             description: "descripción"
+          }, function(message) {
+            console.log(message);
           });
 
         };
