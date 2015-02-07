@@ -3,9 +3,11 @@
 var TaskboardController = (function() {
 
   var start = function(options) {
+    bindEvents();
   };
 
-  var list = function(options){
+  var bindEvents = function(){
+    console.log("bindEvents");
   };
 
   var add = function(task){

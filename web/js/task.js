@@ -2,5 +2,9 @@
 
 var Task = {
   id : 0,
-  description : ''
+  description : '',
+
+  create : function(data) {
+    return $.extend({}, this, data);
+  }
 }
