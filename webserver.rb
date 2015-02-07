@@ -1,8 +1,12 @@
 require "vertx"
-include Vertx
 
-server = HttpServer.new
+#server = HttpServer.new
+#server.request_handler { |req| req.response.send_file("index.html") if req.uri == "/"}
+#server.listen(8080)
 
-server.request_handler { |req| req.response.send_file("index.html") if req.uri == "/"}
+web_server_conf = {
+  'port' => 8000,
+  'host' => 'localhost'
+}
 
-server.listen(8080)
+Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
