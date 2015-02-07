@@ -9,7 +9,7 @@ web_server_conf = {
   'host' => 'localhost',
   'bridge' => true,
   "inbound_permitted" => [
-    { "address" => "board.list" }
+    { "address_re" => "board.task\\..+" }
   ],
   "outbound_permitted" => []
 }
