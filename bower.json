@@ -1,0 +1,21 @@
+{
+  "name": "VertXWorkshop",
+  "version": "0.0.1",
+  "homepage": "https://github.com/makingdevs/VertXWorkshop",
+  "authors": [
+    "sohjiro <felipe@makingdevs.com>",
+    "neodevelop <juan@makingdevs.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vertxbus": "*"
+  }
+}
