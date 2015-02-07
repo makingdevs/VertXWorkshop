@@ -10,5 +10,5 @@ web_server_conf = {
   'bridge' => true
 }
 
-Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
 Vertx.deploy_verticle("list_verticle.groovy")
+Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)

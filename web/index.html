@@ -131,12 +131,10 @@
 
     <script>
       $(function() {
-        var eb = new vertx.EventBus("http://localhost:8080/eventbus");
+        var eb = new vertx.EventBus("http://localhost:8000/eventbus");
         eb.onopen = function() {
           console.log("open");
-          eb.send('board.list', function(message) {
-            console.log(message);
-          });
+          eb.send('board.list');
         };
 
         eb.onclose = function() {
