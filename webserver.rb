@@ -9,8 +9,9 @@ web_server_conf = {
   'host' => 'localhost',
   'bridge' => true,
   "inbound_permitted" => [
-    {"address" => "board.list"}
+    { "address" => "board.list" }
   ],
+  "outbound_permitted" => []
 }
 
 Vertx.deploy_verticle("list_verticle.groovy")
