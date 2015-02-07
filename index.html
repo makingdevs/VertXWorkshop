@@ -132,6 +132,9 @@
         var eb = new vertx.EventBus("http://localhost:8080/eventbus");
         eb.onopen = function() {
           console.log("open");
+          eb.send('board.list', function(message) {
+            console.log(message);
+          });
         };
 
         eb.onclose = function() {
