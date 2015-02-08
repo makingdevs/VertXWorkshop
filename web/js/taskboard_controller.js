@@ -3,6 +3,7 @@
 var TaskboardController = (function() {
 
   var tasksTemplateSelector = "#tasks-template";
+  var tasksDoneSelector = '#todo-tasks-list';
 
   var start = function() {
     bindEvents();
@@ -17,10 +18,9 @@ var TaskboardController = (function() {
     var source = $(tasksTemplateSelector).html();
     var template = Handlebars.compile(source);
     var tasks = TaskManager.getData();
-    console.log("TaskboardController");
     console.log(tasks);
     var html = template(tasks);
-    console.log("html: " + html);
+    $(tasksDoneSelector).html(html);
   };
 
   return {
