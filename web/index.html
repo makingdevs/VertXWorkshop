@@ -70,6 +70,7 @@
     </div> <!-- /container -->
 
     <script id="tasks-template" type="text/x-handlebars-template">
+      {{#each this}}
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Panel title</h3>
@@ -78,6 +79,7 @@
           Panel content
         </div>
       </div>
+      {{/each}}
     </script>
 
     <script src="third-party/jquery/dist/jquery.js"></script>
@@ -96,20 +98,20 @@
         eb.onopen = function() {
           console.log("The event bus is open");
 
-          eb.registerHandler("board.tasks.changed", function(message) {
-            eb.send("board.task.list", {}, function(message) {
-              console.log("getting tasks because someone change it");
-            })
-          })
+          //eb.registerHandler("board.tasks.changed", function(message) {
+          //  eb.send("board.task.list", {}, function(message) {
+          //    console.log("getting tasks because someone change it");
+          //  })
+          //})
 
-          eb.send("board.task.list", {}, function(message) {
-            console.log(message);
-          });
+          //eb.send("board.task.list", {}, function(message) {
+          //  console.log(message);
+          //});
 
-          eb.send("board.task.add", {
-            title: "Título uno",
-            description: "descripción"
-          });
+          //eb.send("board.task.add", {
+          //  title: "Título uno",
+          //  description: "descripción"
+          //});
 
         };
 
@@ -117,7 +119,9 @@
           console.log("close");
           eb = null;
         };
-        TaskFormController.start();
+
+        TaskFormController.start(TaskManager.start(eb));
+        TaskboardController.start(TaskManager.start(eb));
       });
     </script>
   </body>
