@@ -94,7 +94,7 @@
       $(function() {
         var eb = new vertx.EventBus("http://localhost:8000/eventbus");
         eb.onopen = function() {
-          console.log("open");
+          console.log("The event bus is open");
 
           eb.registerHandler("board.tasks.changed", function(message) {
             eb.send("board.task.list", {}, function(message) {

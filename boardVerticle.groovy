@@ -1,19 +1,25 @@
-def eb = vertx.eventBus
+def eventBus = vertx.eventBus
 
-eb.registerHandler("board.task.list") { message ->
+def data = [
+  [title:"New title task",description:"New description task"],
+  [title:"New title task 2",description:"New description task"],
+  [title:"New title task 3",description:"New description task"]
+]
+
+eventBus.registerHandler("board.task.list") { message ->
   println "listing task"
-  message.reply "done"
+  message.reply data
 }
 
-eb.registerHandler("board.task.add") { message ->
+eventBus.registerHandler("board.task.add") { message ->
   println "adding a new task"
-  eb.publish("board.tasks.changed", null)
+  eventBus.publish("board.tasks.changed", null)
 }
 
-eb.registerHandler("board.task.delete") { message ->
+eventBus.registerHandler("board.task.delete") { message ->
   println "board delete task"
 }
 
-eb.registerHandler("board.task.edit") { message ->
+eventBus.registerHandler("board.task.edit") { message ->
   println "board task edited"
 }
