@@ -7,12 +7,21 @@ var TaskboardController = (function() {
 
   var start = function(data) {
     bindEvents();
-    render(data);
+    TaskboardView.render(data);
   };
 
   var bindEvents = function(){
-    console.log("bindEvents");
+    $('form').on('submit', addTask);
   };
+
+  var addTask = function(e) {
+    e.preventDefault();
+    var task = {};
+    $('form').find('input[type="text"], textarea').each(function() {
+      task[this.name] = this.value;
+    });
+    TaskManager.create(task);
+  }
 
   var render = function(tasks){
     var source = $(tasksTemplateSelector).html();
