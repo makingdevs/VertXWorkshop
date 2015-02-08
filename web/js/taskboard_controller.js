@@ -20,7 +20,13 @@ var TaskboardController = (function() {
   var drop = function(ev) {
     var dataTransfer = ev.originalEvent.dataTransfer
     var uuid = dataTransfer.getData("text");
-    $(ev.currentTarget).append( $('#'+uuid) );
+    var $currentTarget = $(ev.currentTarget);
+    $currentTarget.append( $('#'+uuid) );
+
+    TaskManager.update({
+      uuid: uuid,
+      status: $currentTarget.attr('id').split('-').shift()
+    });
   };
 
   var dragover = function(ev) {
