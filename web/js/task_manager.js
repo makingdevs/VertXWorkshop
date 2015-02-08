@@ -14,6 +14,7 @@ var TaskManager = (function() {
   };
 
   var create = function(task){
+    this.eventBus.send("board.task.add", task);
   };
 
   var read = function(task_id){
