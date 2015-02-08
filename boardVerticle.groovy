@@ -6,8 +6,8 @@ eb.registerHandler("board.task.list") { message ->
 }
 
 eb.registerHandler("board.task.add") { message ->
-  def task = new Task(message.body)
-  message.reply task.toMap()
+  println "adding a new task"
+  eb.publish("board.tasks.changed", null)
 }
 
 eb.registerHandler("board.task.delete") { message ->
