@@ -14,11 +14,11 @@ var TaskbordApp = (function() {
         TaskboardController.start(tasks);
       });
 
-      //eventBus.registerHandler("board.tasks.changed", function(message) {
-      //  eventBus.send("board.task.list", {}, function(message) {
-      //    console.log("getting tasks because someone change it");
-      //  })
-      //})
+      eventBus.registerHandler("board.tasks.changed", function(message) {
+        TaskManager.findAll(function(tasks){
+          TaskboardView.render(tasks);
+        });
+      })
 
       //eventBus.send("board.task.list", {}, function(message) {
       //  console.log(message);
