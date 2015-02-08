@@ -11,7 +11,7 @@ eventBus.registerHandler("board.task.list") { message ->
 }
 
 eventBus.registerHandler("board.task.add") { message ->
-  data << [title:message.body.title, description: message.body.description]
+  data << [uuid: UUID.randomUUID().toString().replace('-',''), title:message.body.title, description: message.body.description, status:'TODO']
   eventBus.publish("board.tasks.changed", null)
 }
 
