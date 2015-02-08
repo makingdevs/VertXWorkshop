@@ -1,31 +1,31 @@
 'use strict';
 
-var TaskManager = (function() {
+var TaskManager = {
 
-  var eventBus = null;
+  eventBus : null,
 
-  var start = function(_eventBus){
+  start : function(_eventBus, data) {
     eventBus = _eventBus;
-    return this;
-  };
+    return $.extend({}, this, data);
+  },
 
-  var create = function(task){
+  create : function(task){
     console.log('create');
-  };
+  },
 
-  var read = function(task_id){
+  read : function(task_id){
     console.log('read');
-  };
+  },
 
-  var update = function(task){
+  update : function(task){
     console.log('update');
-  };
+  },
 
-  var eliminate = function(task){
+  eliminate : function(task){
     console.log('eliminate');
-  };
+  },
 
-  var list = function(){
+  list : function(){
     var data = null;
     console.log(eventBus);
     eventBus.onopen = function() {
@@ -38,15 +38,6 @@ var TaskManager = (function() {
     };
     console.log("TaskManager: " + data);
     return data;
-  };
+  }
 
-  return {
-    start : start,
-    create : create,
-    read : read,
-    update : update,
-    eliminate : eliminate,
-    list : list
-  };
-
-}());
+}

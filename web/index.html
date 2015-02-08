@@ -89,40 +89,10 @@
     <script src="third-party/vertxbus/vertxbus.js"></script>
     <script src="js/task.js"></script>
     <script src="js/task_manager.js"></script>
+    <script src="js/task_manager_editor.js"></script>
     <script src="js/task_form_controller.js"></script>
     <script src="js/taskboard_controller.js"></script>
+    <script src="js/app.js"></script>
 
-    <script>
-      $(function() {
-        var eb = new vertx.EventBus("http://localhost:8000/eventbus");
-        eb.onopen = function() {
-          console.log("The event bus is open");
-
-          //eb.registerHandler("board.tasks.changed", function(message) {
-          //  eb.send("board.task.list", {}, function(message) {
-          //    console.log("getting tasks because someone change it");
-          //  })
-          //})
-
-          //eb.send("board.task.list", {}, function(message) {
-          //  console.log(message);
-          //});
-
-          //eb.send("board.task.add", {
-          //  title: "Título uno",
-          //  description: "descripción"
-          //});
-
-        };
-
-        eb.onclose = function() {
-          console.log("close");
-          eb = null;
-        };
-
-        TaskFormController.start(TaskManager.start(eb));
-        TaskboardController.start(TaskManager.start(eb));
-      });
-    </script>
   </body>
 </html>
