@@ -13,6 +13,7 @@ eventBus.registerHandler("board.task.list") { message ->
 
 eventBus.registerHandler("board.task.add") { message ->
   println "adding a new task"
+  data << [title:message.body.title, description: message.body.description]
   eventBus.publish("board.tasks.changed", null)
 }
 
