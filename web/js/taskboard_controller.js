@@ -5,20 +5,18 @@ var TaskboardController = (function() {
   var tasksTemplateSelector = "#tasks-template";
   var tasksDoneSelector = '#todo-tasks-list';
 
-  var start = function() {
+  var start = function(data) {
     bindEvents();
-   render();
+    render(data);
   };
 
   var bindEvents = function(){
     console.log("bindEvents");
   };
 
-  var render = function(){
+  var render = function(tasks){
     var source = $(tasksTemplateSelector).html();
     var template = Handlebars.compile(source);
-    var tasks = TaskManager.getData();
-    console.log(tasks);
     var html = template(tasks);
     $(tasksDoneSelector).html(html);
   };
