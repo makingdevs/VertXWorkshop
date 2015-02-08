@@ -11,7 +11,9 @@ web_server_conf = {
   "inbound_permitted" => [
     { "address_re" => "board.task\\..+" }
   ],
-  "outbound_permitted" => []
+  "outbound_permitted" => [
+    { "address" => "board.tasks.changed" }
+  ]
 }
 
 Vertx.deploy_verticle("boardVerticle.groovy")
