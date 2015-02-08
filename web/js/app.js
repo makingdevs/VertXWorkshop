@@ -9,8 +9,10 @@ var TaskbordApp = (function() {
     eventBus = new vertx.EventBus("http://localhost:8000/eventbus");
     eventBus.onopen = function() {
       console.log("The event bus is open");
-      //var taskManager = TaskManager.start(eventBus);
-      //console.log(taskManager.list());
+      TaskManager.start(eventBus);
+      TaskManager.findAll(function(){
+        TaskboardController.start();
+      });
 
       //eventBus.registerHandler("board.tasks.changed", function(message) {
       //  eventBus.send("board.task.list", {}, function(message) {

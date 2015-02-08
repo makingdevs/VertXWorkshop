@@ -3,12 +3,10 @@
 var TaskboardController = (function() {
 
   var tasksTemplateSelector = "#tasks-template";
-  var taskManager = null;
 
-  var start = function(_taskManager) {
-    taskManager = _taskManager;
+  var start = function() {
     bindEvents();
-    render();
+   render();
   };
 
   var bindEvents = function(){
@@ -18,7 +16,7 @@ var TaskboardController = (function() {
   var render = function(){
     var source = $(tasksTemplateSelector).html();
     var template = Handlebars.compile(source);
-    var tasks = taskManager.list();
+    var tasks = TaskManager.getData();
     console.log("TaskboardController");
     console.log(tasks);
     var html = template(tasks);

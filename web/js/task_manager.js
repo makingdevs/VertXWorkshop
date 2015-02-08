@@ -1,43 +1,47 @@
 'use strict';
 
-var TaskManager = {
+var TaskManager = (function() {
 
-  eventBus : null,
+  var eventBus = null;
+  var data = null;
 
-  start : function(_eventBus, data) {
-    eventBus = _eventBus;
-    return $.extend({}, this, data);
-  },
+  var start = function(eventBus){
+    this.eventBus = eventBus;
+    return this;
+  };
 
-  create : function(task){
-    console.log('create');
-  },
+  var getData = function(task){
+    return this.data;
+  };
 
-  read : function(task_id){
-    console.log('read');
-  },
+  var create = function(task){
+  };
 
-  update : function(task){
-    console.log('update');
-  },
+  var read = function(task_id){
+  };
 
-  eliminate : function(task){
-    console.log('eliminate');
-  },
+  var update = function(task){
+  };
 
-  list : function(){
-    var data = null;
-    console.log(eventBus);
-    eventBus.onopen = function() {
-      eventBus.send("board.task.list", {}, function(message) {
-        console.log('Receiving message');
-        console.log(message);
-        data = message;
-        return message;
-      });
-    };
-    console.log("TaskManager: " + data);
-    return data;
-  }
+  var eliminate = function(task){
+  };
 
-}
+  var findAll = function(callback){
+    var self = this;
+    this.eventBus.send("board.task.list", {}, function(message) {
+      self.data = message;
+      callback();
+    });
+  };
+
+  return {
+    start : start,
+    getData : getData,
+    create : create,
+    read : read,
+    update : update,
+    eliminate : eliminate,
+    findAll : findAll
+  };
+
+}());

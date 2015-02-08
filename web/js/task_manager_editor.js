@@ -2,14 +2,11 @@ function TaskManagerEditor(eventBus){
   this.eventBus = eventBus;
   this.data = null
 }
-TaskManagerEditor.prototype.findAll = function(){
-  var self = this;
+TaskManagerEditor.prototype.findAll = function(callback){
   this.eventBus.send("board.task.list", {}, function(message) {
     self.data = message;
-    console.log(message);
-    console.log(self.data);
+    callback();
   });
-  return self.data;
 }
 TaskManagerEditor.prototype.getData = function(){
   return this.data;
