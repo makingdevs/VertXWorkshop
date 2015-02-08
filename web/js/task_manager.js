@@ -21,6 +21,7 @@ var TaskManager = (function() {
   };
 
   var update = function(task){
+    this.eventBus.send("board.task.edit", task);
   };
 
   var eliminate = function(task){

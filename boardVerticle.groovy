@@ -20,5 +20,7 @@ eventBus.registerHandler("board.task.delete") { message ->
 }
 
 eventBus.registerHandler("board.task.edit") { message ->
-  println "board task edited"
+  def task = data.find { it.uuid == message.body.uuid }
+  task.status = message.body.status.toUpperCase()
+  eventBus.publish("board.tasks.changed", null)
 }
