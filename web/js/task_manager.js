@@ -7,7 +7,6 @@ var TaskManager = (function() {
 
   var start = function(eventBus){
     this.eventBus = eventBus;
-    return this;
   };
 
   var getData = function(task){
@@ -27,10 +26,8 @@ var TaskManager = (function() {
   };
 
   var findAll = function(callback){
-    var self = this;
     this.eventBus.send("board.task.list", {}, function(message) {
-      self.data = message;
-      callback();
+      callback(message);
     });
   };
 
