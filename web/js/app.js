@@ -10,8 +10,8 @@ var TaskbordApp = (function() {
     eventBus.onopen = function() {
       console.log("The event bus is open");
       TaskManager.start(eventBus);
-      TaskManager.findAll(function(){
-        TaskboardController.start();
+      TaskManager.findAll(function(tasks){
+        TaskboardController.start(tasks);
       });
 
       //eventBus.registerHandler("board.tasks.changed", function(message) {
