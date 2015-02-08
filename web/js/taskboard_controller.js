@@ -12,6 +12,24 @@ var TaskboardController = (function() {
 
   var bindEvents = function(){
     $('form').on('submit', addTask);
+    $('body').on('dragstart', '.draggable', drag);
+    $('body').on('dragover', '.dropable', dragover);
+    $('body').on('drop', '.dropable', drop);
+  };
+
+  var drop = function(ev) {
+    var dataTransfer = ev.originalEvent.dataTransfer
+    var uuid = dataTransfer.getData("text");
+    $(ev.currentTarget).append( $('#'+uuid) );
+  };
+
+  var dragover = function(ev) {
+    ev.preventDefault();
+  };
+
+  var drag = function(ev) {
+    var dataTransfer = ev.originalEvent.dataTransfer
+    dataTransfer.setData("text", ev.target.id);
   };
 
   var addTask = function(e) {
