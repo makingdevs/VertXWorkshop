@@ -3,11 +3,27 @@
 var TaskboardController = (function() {
 
   var tasksTemplateSelector = "#tasks-template";
-  var tasksDoneSelector = '#todo-tasks-list';
+  var todoTasksSelector = '#todo-tasks-list';
+  var wipTasksSelector = '#wip-tasks-list';
+  var doneTasksSelector = '#done-tasks-list';
 
   var start = function(data) {
     bindEvents();
-    TaskboardView.render(data);
+    var todoList = data.filter(function(task) {
+      return task.status === "TODO";
+    });
+
+    var wipList = data.filter(function(task) {
+      return task.status === "WIP";
+    });
+
+    var doneList = data.filter(function(task) {
+      return task.status === "DONE";
+    });
+
+    TaskboardView.render(todoList, todoTasksSelector);
+    TaskboardView.render(wipList, wipTasksSelector);
+    TaskboardView.render(doneList, doneTasksSelector);
   };
 
   var bindEvents = function(){
