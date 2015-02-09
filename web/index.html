@@ -72,7 +72,11 @@
       {{#each this}}
         <div class="panel panel-default draggable" draggable="true" id="{{uuid}}">
           <div class="panel-heading">
-            <h3 class="panel-title">{{title}}</h3>
+            <b class="panel-title">{{title}}</b>
+            <div class="btn-group pull-right">
+              <i class="glyphicon glyphicon-remove"></i>
+            </div>
+            <div class="clearfix"></div>
           </div>
           <div class="panel-body">{{description}}</div>
         </div>
