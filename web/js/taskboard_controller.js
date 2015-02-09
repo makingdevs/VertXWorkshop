@@ -48,13 +48,6 @@ var TaskboardController = (function() {
     TaskManager.create(task);
   }
 
-  var render = function(tasks){
-    var source = $(tasksTemplateSelector).html();
-    var template = Handlebars.compile(source);
-    var html = template(tasks);
-    $(tasksDoneSelector).html(html);
-  };
-
   return {
     start : start
   };
