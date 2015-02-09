@@ -16,21 +16,9 @@ var TaskbordApp = (function() {
 
       eventBus.registerHandler("board.tasks.changed", function(message) {
         TaskManager.findAll(function(tasks){
-          var todoList = tasks.filter(function(task) {
-            return task.status === "TODO";
-          });
-
-          var wipList = tasks.filter(function(task) {
-            return task.status === "WIP";
-          });
-
-          var doneList = tasks.filter(function(task) {
-            return task.status === "DONE";
-          });
-
-          TaskboardView.render(todoList, '#todo-tasks-list');
-          TaskboardView.render(wipList, '#wip-tasks-list');
-          TaskboardView.render(doneList, '#done-tasks-list');
+          TodoListView.render(tasks);
+          WipListView.render(tasks);
+          DoneListView.render(tasks);
         });
       })
 
