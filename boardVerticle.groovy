@@ -16,8 +16,8 @@ eventBus.registerHandler("board.task.add") { message ->
 }
 
 eventBus.registerHandler("board.task.delete") { message ->
-  println "board delete task"
-  println message.body
+  data.removeAll { t -> t.uuid == message.body.uuid }
+  eventBus.publish("board.tasks.changed", null)
 }
 
 eventBus.registerHandler("board.task.edit") { message ->
