@@ -1,5 +1,4 @@
 def eventBus = vertx.eventBus
-
 def data = [
   [uuid: UUID.randomUUID().toString().replace('-',''), title:"New title task",description:"New description task", status:'TODO'],
   [uuid: UUID.randomUUID().toString().replace('-',''), title:"New title task 2",description:"New description task", status:'WIP'],
@@ -11,8 +10,10 @@ eventBus.registerHandler("board.task.list") { message ->
 }
 
 eventBus.registerHandler("board.task.add") { message ->
-  data << [uuid: UUID.randomUUID().toString().replace('-',''), title:message.body.title, description: message.body.description, status:'TODO']
-  eventBus.publish("board.tasks.changed", null)
+  def document = [uuid: UUID.randomUUID().toString().replace('-',''), title:message.body.title, description: message.body.description, status:'TODO']
+  eventBus.send('vertx.board', [ "action": "save", "collection": 'tasks', "document": document ]) { messageBack ->
+    eventBus.publish("board.tasks.changed", null)
+  }
 }
 
 eventBus.registerHandler("board.task.delete") { message ->
