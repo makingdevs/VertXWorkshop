@@ -13,6 +13,7 @@ var TaskbordApp = (function() {
       TaskManager.findAll(function(tasks){
         TaskboardController.start(tasks);
       });
+      TaskFormController.start();
 
       eventBus.registerHandler("board.tasks.changed", function(message) {
         TaskManager.findAll(function(tasks){

@@ -5,10 +5,8 @@ var TaskFormController = (function() {
   var formSelector = '#task-form';
   var formDivSelector = null;
   var form = null;
-  var taskManager = null;
 
-  var start = function(_taskManager){
-    taskManager = _taskManager;
+  var start = function(){
     formDivSelector = $(formSelector);
     form = $(formSelector).find('form');
     bindEvents();
@@ -19,9 +17,13 @@ var TaskFormController = (function() {
   };
 
   var addOneTask = function(e){
-    console.log(form.serialize());
-    taskManager.create({});
+    var task = {};
+    $('form').find('input[type="text"], textarea').each(function() {
+      task[this.name] = this.value;
+    });
+    TaskManager.create(task);
     form.trigger('reset');
+    $('input[type="text"]').first().foucs();
     e.preventDefault();
   };
 
