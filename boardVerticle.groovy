@@ -17,6 +17,7 @@ eventBus.registerHandler("board.task.add") { message ->
 
 eventBus.registerHandler("board.task.delete") { message ->
   println "board delete task"
+  println message.body
 }
 
 eventBus.registerHandler("board.task.edit") { message ->

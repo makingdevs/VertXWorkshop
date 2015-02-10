@@ -23,7 +23,7 @@ var TaskFormController = (function() {
     });
     TaskManager.create(task);
     form.trigger('reset');
-    $('input[type="text"]').first().foucs();
+    $('input[type="text"]').first().focus();
     e.preventDefault();
   };
 

@@ -17,14 +17,12 @@ var TaskManager = (function() {
     this.eventBus.send("board.task.add", task);
   };
 
-  var read = function(task_id){
-  };
-
   var update = function(task){
     this.eventBus.send("board.task.edit", task);
   };
 
-  var eliminate = function(task){
+  var remove = function(taskUuid){
+    this.eventBus.send("board.task.delete", { uuid:taskUuid });
   };
 
   var findAll = function(callback){
@@ -37,9 +35,8 @@ var TaskManager = (function() {
     start : start,
     getData : getData,
     create : create,
-    read : read,
     update : update,
-    eliminate : eliminate,
+    remove : remove,
     findAll : findAll
   };
 
