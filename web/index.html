@@ -78,8 +78,16 @@
             </div>
             <div class="clearfix"></div>
           </div>
-          <div class="panel-body">{{description}}</div>
+          <div class="panel-body">
+            {{#if description}}
+              {{description}}
+            {{else}}
+              <span class='text-muted'>No description in this task</span>
+            {{/if}}
+          </div>
         </div>
+      {{else}}
+        <p class="empty">There's no tasks here</p>
       {{/each}}
     </script>
 

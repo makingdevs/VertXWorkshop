@@ -33,7 +33,6 @@ var TaskboardController = (function() {
   var removeTask = function(e){
     var panelElement = $(e.target).parents('.panel')[0];
     var taskUuid = $(panelElement).attr('id');
-    console.log(taskUuid);
     TaskManager.remove(taskUuid);
   }
 
