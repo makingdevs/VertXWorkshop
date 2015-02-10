@@ -6,7 +6,9 @@ def data = [
 ]
 
 eventBus.registerHandler("board.task.list") { message ->
-  message.reply data
+  eventBus.send('vertx.board', [ "action": "find", "collection": 'tasks']) { messageBack ->
+    message.reply messageBack.body.results
+  }
 }
 
 eventBus.registerHandler("board.task.add") { message ->
