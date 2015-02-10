@@ -12,23 +12,29 @@ var TaskboardController = (function() {
   };
 
   var bindEvents = function(){
-    $('form').on('submit', addTask);
     $('body').on('dragstart', '.draggable', drag);
     $('body').on('dragover', '.dropable', dragover);
     $('body').on('drop', '.dropable', drop);
+    $('body').on('click', '.remove-task', removeTask);
   };
 
   var drop = function(ev) {
     var dataTransfer = ev.originalEvent.dataTransfer
     var uuid = dataTransfer.getData("text");
     var $currentTarget = $(ev.currentTarget);
-    $currentTarget.append( $('#'+uuid) );
+    //$currentTarget.append( $('#'+uuid) ); // No es necesario!
 
     TaskManager.update({
       uuid: uuid,
       status: $currentTarget.attr('id').split('-').shift()
     });
   };
+
+  var removeTask = function(e){
+    var panelElement = $(e.target).parents('.panel')[0];
+    var taskUuid = $(panelElement).attr('id');
+    console.log(taskUuid);
+  }
 
   var dragover = function(ev) {
     ev.preventDefault();
@@ -38,15 +44,6 @@ var TaskboardController = (function() {
     var dataTransfer = ev.originalEvent.dataTransfer
     dataTransfer.setData("text", ev.target.id);
   };
-
-  var addTask = function(e) {
-    e.preventDefault();
-    var task = {};
-    $('form').find('input[type="text"], textarea').each(function() {
-      task[this.name] = this.value;
-    });
-    TaskManager.create(task);
-  }
 
   return {
     start : start
