@@ -28,4 +28,5 @@ mongo_persistor = {
 
 Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
 Vertx.deploy_module('io.vertx~mod-mongo-persistor~2.1.0', mongo_persistor)
+Vertx.deploy_verticle("manageVerticles.js")
 Vertx.deploy_verticle("boardVerticle.groovy")
