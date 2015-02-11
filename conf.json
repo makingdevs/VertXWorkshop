@@ -1,0 +1,22 @@
+{
+  'web' : {
+    'port' : 8000,
+    'host' : 'localhost',
+    'bridge' : true,
+    "inbound_permitted" : [
+    { "address_re" : "board.task\\..+" }
+    ],
+      "outbound_permitted" : [
+      { "address" : "board.tasks.changed" }
+    ]
+  },
+  'mongo' : {
+    "address" : "vertx.board",
+    "host" : "localhost",
+    "port" : 27017,
+    "pool_size" : 20,
+    "db_name" : "tasks",
+    "read_preference" : "nearest",
+    "use_mongo_types" : false
+  }
+}
