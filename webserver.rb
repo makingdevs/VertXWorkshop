@@ -4,6 +4,8 @@ require "vertx"
 #server.request_handler { |req| req.response.send_file("index.html") if req.uri == "/"}
 #server.listen(8080)
 
+#TODO: Usar sahred data para estos mapas de configuración
+
 web_server_conf = {
   'port' => 8000,
   'host' => 'localhost',

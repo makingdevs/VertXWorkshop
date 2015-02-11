@@ -32,7 +32,7 @@ var executeCommand = function(command) {
       eventBus.send('verticle.groovy.undeploy', command);
       break;
     default:
-        console.log('default');
+      socket.write("Command not found...")
   }
 }
 
