@@ -4,6 +4,7 @@ var container = require('vertx/container');
 var vertx = require("vertx")
 
 var server = vertx.createNetServer();
+var verticleId = '';
 
 server.connectHandler(function(socket) {
   console.log("A client has connected!");
@@ -11,12 +12,22 @@ server.connectHandler(function(socket) {
     socket.write(message + "\n")
   });
   eventBus.registerHandler("verticle.groovy.deploy",function(message){
-    container.deployVerticle('boardVerticle.groovy');
+    container.deployVerticle('boardVerticle.groovy',function(error, deploymentId){
+      if (!error) {
+        socket.write("The verticle has been deployed, deployment ID is " + deploymentId);
+        verticleId = deploymentId;
+      } else {
+        socket.write("Deployment failed! " + error.getMessage());
+      }
+    });
     socket.write("boardVerticle.groovy deployed\n")
   });
   eventBus.registerHandler("verticle.groovy.undeploy",function(message){
-    container.undeployVerticle('boardVerticle.groovy');
+    container.undeployVerticle(verticleId);
     socket.write("boardVerticle.groovy undeployed\n")
+  });
+  eventBus.registerHandler("verticle.groovy.list",function(message){
+    socket.write(verticleId);
   });
   socket.dataHandler(function(buffer){
     executeCommand(buffer.toString());
@@ -31,8 +42,11 @@ var executeCommand = function(command) {
     case /undeploy/.test(command):
       eventBus.send('verticle.groovy.undeploy', command);
       break;
+    case /list/.test(command):
+      eventBus.send('verticle.groovy.list', command);
+      break;
     default:
-      socket.write("Command not found...")
+      eventBus.send('write.to.socket', "Command not found...");
   }
 }
 
