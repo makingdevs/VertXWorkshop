@@ -4,7 +4,8 @@ var container = require('vertx/container');
 var vertx = require("vertx")
 
 var server = vertx.createNetServer();
-var verticleIdentifiers = new java.util.ArrayList();
+var verticleIdentifiers = [];
+var verticles = { deploymentIds: [] };
 
 server.connectHandler(function(socket) {
   console.log("A client has connected!");
@@ -15,9 +16,8 @@ server.connectHandler(function(socket) {
   eventBus.registerHandler("verticle.groovy.deploy",function(message){
     container.deployVerticle('boardVerticle.groovy',function(error, deploymentId){
       if (!error) {
-        socket.write("The verticle has been deployed, deployment ID is " + deploymentId);
-        verticleIdentifiers.add(deploymentId);
-        console.log(verticleIdentifiers);
+        socket.write("The verticle has been deployed, deployment ID is " + deploymentId + "\n");
+        verticles.deploymentIds.push(deploymentId);
       } else {
         socket.write("Deployment failed! " + error.getMessage());
       }
@@ -30,7 +30,7 @@ server.connectHandler(function(socket) {
   });
   eventBus.registerHandler("verticle.groovy.list",function(message){
     socket.write("Listing verticles \n")
-    socket.write(verticleIdentifiers);
+    socket.write(verticles.deploymentIds + "\n");
     socket.write("Listing verticles done \n")
     for(var i=0; i < verticleIdentifiers.length; i++)
       socket.write(verticleIdentifiers[i]);
