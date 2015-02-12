@@ -25,16 +25,17 @@ server.connectHandler(function(socket) {
     socket.write("boardVerticle.groovy deployed\n")
   });
   eventBus.registerHandler("verticle.groovy.undeploy",function(message){
-    container.undeployVerticle(verticleId);
-    socket.write("boardVerticle.groovy undeployed\n")
+    verticles.deploymentIds.forEach(function(element, index, array){
+      container.undeployVerticle(element);
+      socket.write(element + " undeployed \n");
+    });
+    verticles.deploymentIds = [];
   });
   eventBus.registerHandler("verticle.groovy.list",function(message){
     socket.write("Listing verticles \n")
-    socket.write(verticles.deploymentIds + "\n");
-    socket.write("Listing verticles done \n")
-    for(var i=0; i < verticleIdentifiers.length; i++)
-      socket.write(verticleIdentifiers[i]);
-    socket.write("All verticles \n")
+    verticles.deploymentIds.forEach(function(element, index, array){
+      socket.write(element + "\n");
+    });
   });
   socket.dataHandler(function(buffer){
     executeCommand(buffer.toString());
@@ -46,7 +47,7 @@ var executeCommand = function(command) {
     case /deploy/.test(command):
       eventBus.send('verticle.groovy.deploy', command);
       break;
-    case /undeploy/.test(command):
+    case /reset/.test(command):
       eventBus.send('verticle.groovy.undeploy', command);
       break;
     case /list/.test(command):
