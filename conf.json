@@ -1,16 +1,16 @@
 {
-  'web' : {
-    'port' : 8000,
-    'host' : 'localhost',
-    'bridge' : true,
+  "web" : {
+    "port" : 8000,
+    "host" : "localhost",
+    "bridge" : true,
     "inbound_permitted" : [
-    { "address_re" : "board.task\\..+" }
+      { "address_re" : "board.task\\..+" }
     ],
-      "outbound_permitted" : [
+    "outbound_permitted" : [
       { "address" : "board.tasks.changed" }
     ]
   },
-  'mongo' : {
+  "mongo" : {
     "address" : "vertx.board",
     "host" : "localhost",
     "port" : 27017,
