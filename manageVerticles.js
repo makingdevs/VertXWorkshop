@@ -8,21 +8,21 @@ var server = vertx.createNetServer();
 var verticleIdentifiers = [];
 var verticles = { deploymentIds: [] };
 
-container.deployModule("io.vertx~mod-web-server~2.0.0-final", config.web, 1, function(err, deploymentID) {
-  if (err) {
-    console.log("Failed to deploy: " + err);
-  } else {
-    console.log("This gets called when deployment is complete, deployment id is " + deploymentID);
-  }
-});
-
-container.deployModule("io.vertx~mod-mongo-persistor~2.1.0", config.mongo, 1, function(err, deploymentID) {
-  if (err) {
-    console.log("Failed to deploy: " + err);
-  } else {
-    console.log("This gets called when deployment is complete, deployment id is " + deploymentID);
-  }
-});
+//container.deployModule("io.vertx~mod-web-server~2.0.0-final", config.web, 1, function(err, deploymentID) {
+//  if (err) {
+//    console.log("Failed to deploy: " + err);
+//  } else {
+//    console.log("This gets called when deployment is complete, deployment id is " + deploymentID);
+//  }
+//});
+//
+//container.deployModule("io.vertx~mod-mongo-persistor~2.1.0", config.mongo, 1, function(err, deploymentID) {
+//  if (err) {
+//    console.log("Failed to deploy: " + err);
+//  } else {
+//    console.log("This gets called when deployment is complete, deployment id is " + deploymentID);
+//  }
+//});
 
 server.connectHandler(function(socket) {
   console.log("A client has connected!");
@@ -53,18 +53,18 @@ server.connectHandler(function(socket) {
       socket.write(element + "\n");
     });
   });
-  //eventBus.registerHandler("module.web.deploy",function(message){
-  //  socket.write("Deploying web module \n");
-  //  container.deployModule("io.vertx~mod-web-server~2.0.0-final", config.web, function(){
-  //    socket.write("Deploying web module, done! \n");
-  //  });
-  //});
-  //eventBus.registerHandler("module.mongo.deploy",function(message){
-  //  socket.write("Deploying mongo module \n");
-  //  container.deployModule("io.vertx~mod-mongo-persistor~2.1.0", config.mongo, function(){
-  //    socket.write("Deploying mongo module, done! \n");
-  //  });
-  //});
+  eventBus.registerHandler("module.web.deploy",function(message){
+    socket.write("Deploying web module \n");
+    container.deployModule("io.vertx~mod-web-server~2.0.0-final", config.web, function(){
+      socket.write("Deploying web module, done! \n");
+    });
+  });
+  eventBus.registerHandler("module.mongo.deploy",function(message){
+    socket.write("Deploying mongo module \n");
+    container.deployModule("io.vertx~mod-mongo-persistor~2.1.0", config.mongo, function(){
+      socket.write("Deploying mongo module, done! \n");
+    });
+  });
   socket.dataHandler(function(buffer){
     executeCommand(buffer.toString());
   });
@@ -81,12 +81,12 @@ var executeCommand = function(command) {
     case /list/.test(command):
       eventBus.send('verticle.groovy.list', command);
       break;
-    //case /web-module/.test(command):
-    //  eventBus.send('module.web.deploy', command);
-    //  break;
-    //case /mongo-module/.test(command):
-    //  eventBus.send('module.mongo.deploy', command);
-    //  break;
+    case /web-module/.test(command):
+      eventBus.send('module.web.deploy', command);
+      break;
+    case /mongo-module/.test(command):
+      eventBus.send('module.mongo.deploy', command);
+      break;
     default:
       eventBus.send('write.to.socket', "Command not found...");
   }
