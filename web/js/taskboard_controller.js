@@ -19,6 +19,7 @@ var TaskboardController = (function() {
   };
 
   var drop = function(ev) {
+    ev.preventDefault();
     var dataTransfer = ev.originalEvent.dataTransfer
     var uuid = dataTransfer.getData("text");
     var $currentTarget = $(ev.currentTarget);
@@ -42,7 +43,7 @@ var TaskboardController = (function() {
 
   var drag = function(ev) {
     var dataTransfer = ev.originalEvent.dataTransfer
-    dataTransfer.setData("text", ev.target.id);
+    dataTransfer.setData("text/plain", ev.target.id);
   };
 
   return {
