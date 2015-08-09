@@ -1,4 +1,5 @@
 mods/
 bower_components
 web/third-party/
+webroot/third-party/
 data/
