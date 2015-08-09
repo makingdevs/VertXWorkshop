@@ -1,13 +1,15 @@
-def eventBus = vertx.eventBus
+import io.vertx.groovy.core.Vertx
 
-eventBus.registerHandler("board.task.list") { message ->
+def eventBus = Vertx.vertx()eventBus()
+
+eventBus.consumer("board.task.list") { message ->
   def query = [ action: "find", collection: "tasks" ]
   eventBus.send('vertx.board', query) { messageBack ->
     message.reply messageBack.body.results
   }
 }
 
-eventBus.registerHandler("board.task.add") { message ->
+eventBus.consumer("board.task.add") { message ->
   def query = [
     action: "save",
     collection: "tasks",
@@ -21,7 +23,7 @@ eventBus.registerHandler("board.task.add") { message ->
   }
 }
 
-eventBus.registerHandler("board.task.delete") { message ->
+eventBus.consumer("board.task.delete") { message ->
   def query = [
     "action": "delete",
     "collection": "tasks",
@@ -34,7 +36,7 @@ eventBus.registerHandler("board.task.delete") { message ->
   }
 }
 
-eventBus.registerHandler("board.task.edit") { message ->
+eventBus.consumer("board.task.edit") { message ->
   def query = [
     action: "update",
     collection: "tasks",
