@@ -9,11 +9,6 @@ router.route("/static/*").handler(&VertxWeb::StaticHandler.create().method(:hand
 
 server.request_handler(&router.method(:accept)).listen(8080)
 
-#require "vertx"
-
-#server = HttpServer.new
-#server.request_handler { |req| req.response.send_file("index.html") if req.uri == "/"}
-#server.listen(8080)
 
 #web_server_conf = {
 #  'port' => 8000,
@@ -27,16 +22,16 @@ server.request_handler(&router.method(:accept)).listen(8080)
 #  ]
 #}
 #
-#mongo_persistor = {
-#  "address" => "vertx.board",
-#  "host" => "localhost",
-#  "port" => 27017,
-#  "pool_size" => 20,
-#  "db_name" => "tasks",
-#  "read_preference" => "nearest",
-#  "use_mongo_types" => false
-#}
-#
+mongo_persistor = {
+  "host" => "localhost",
+  "port" => 27017,
+  "db_name" => "tasks",
+  "useObjectId" => false
+}
+options = {
+  "config" => mongo_persistor
+}
+
 #Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
 #Vertx.deploy_module('io.vertx~mod-mongo-persistor~2.1.0', mongo_persistor)
-#Vertx.deploy_verticle("boardVerticle.groovy")
+$vertx.deploy_verticle("boardVerticle.groovy", options)

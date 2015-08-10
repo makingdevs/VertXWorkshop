@@ -1,6 +1,13 @@
 import io.vertx.groovy.core.Vertx
+import io.vertx.groovy.ext.mongo.MongoClient
 
-def eventBus = Vertx.vertx()eventBus()
+def vertx = Vertx.vertx()
+def eventBus = vertx.eventBus()
+def config = [
+]
+//def client = MongoClient.createShared(vertx, config)
+
+println vertx.currentContext().config()
 
 eventBus.consumer("board.task.list") { message ->
   def query = [ action: "find", collection: "tasks" ]

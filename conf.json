@@ -11,12 +11,10 @@
     ]
   },
   "mongo" : {
-    "address" : "vertx.board",
     "host" : "localhost",
     "port" : 27017,
-    "pool_size" : 20,
+    "minPoolSize" : 20,
     "db_name" : "tasks",
-    "read_preference" : "nearest",
-    "use_mongo_types" : false
+    "useObjectId" : false
   }
 }
