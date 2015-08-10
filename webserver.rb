@@ -1,11 +1,20 @@
 require 'vertx-web/router'
 require 'vertx-web/static_handler'
+require 'vertx-web/sock_js_handler'
 
 server = $vertx.create_http_server()
 
 router = VertxWeb::Router.router($vertx)
 
 router.route("/static/*").handler(&VertxWeb::StaticHandler.create().method(:handle))
+
+sockJSHandler = VertxWeb::SockJSHandler.create($vertx)
+
+options = {
+}
+sockJSHandler.bridge(options)
+
+router.route("/eventbus/*").handler(&sockJSHandler.method(:handle))
 
 server.request_handler(&router.method(:accept)).listen(8080)
 
@@ -33,5 +42,4 @@ options = {
 }
 
 #Vertx.deploy_module('io.vertx~mod-web-server~2.0.0-final', web_server_conf)
-#Vertx.deploy_module('io.vertx~mod-mongo-persistor~2.1.0', mongo_persistor)
 $vertx.deploy_verticle("boardVerticle.groovy", options)
