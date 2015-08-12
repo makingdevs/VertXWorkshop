@@ -25,7 +25,6 @@ router.route("/eventbus/*").handler(&sockJSHandler.method(:handle))
 
 server.request_handler(&router.method(:accept)).listen(8000)
 
-
 mongo_persistor = {
   "host" => "localhost",
   "port" => 27017,
