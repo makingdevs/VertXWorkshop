@@ -16,8 +16,9 @@
     "tests"
   ],
   "dependencies": {
-    "vertxbus": "*",
+    "vertx3-eventbus-client": "*",
     "bootstrap": "~3.3.2",
-    "handlebars": "~2.0.0"
+    "handlebars": "~2.0.0",
+    "sockjs-client": "~1.0.3"
   }
 }
