@@ -1,4 +1,4 @@
-import io.vertx.groovy.ext.mongo.MongoClient
+import io.vertx.ext.mongo.MongoClient
 
 def eventBus = vertx.eventBus()
 def config = vertx.currentContext().config()
