@@ -17,13 +17,13 @@ var TaskbordApp = (function() {
       });
       TaskFormController.start();
 
-      //eventBus.registerHandler("board.tasks.changed", function(err, message) {
-      //  TaskManager.findAll(function(tasks){
-      //    TodoListView.render(tasks);
-      //    WipListView.render(tasks);
-      //    DoneListView.render(tasks);
-      //  });
-      //})
+      eventBus.registerHandler("board.tasks.changed", function(err, message) {
+        TaskManager.findAll(function(tasks){
+          TodoListView.render(tasks);
+          WipListView.render(tasks);
+          DoneListView.render(tasks);
+        });
+      })
 
       //eventBus.send("board.task.list", {}, function(error, message) {
       //  console.log(message);
