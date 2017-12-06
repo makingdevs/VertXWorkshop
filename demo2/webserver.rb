@@ -6,7 +6,7 @@ server = $vertx.create_http_server()
 
 router = VertxWeb::Router.router($vertx)
 
-router.route("/static/*").handler(&VertxWeb::StaticHandler.create().method(:handle))
+router.route("/static/*").handler(&VertxWeb::StaticHandler.create().set_caching_enabled(false).set_files_read_only(false).method(:handle))
 
 options = {
   'inboundPermitteds' => [
