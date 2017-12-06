@@ -26,8 +26,8 @@ var TaskManager = (function() {
   };
 
   var findAll = function(callback){
-    this.eventBus.send("board.task.list", {}, function(message) {
-      callback(message);
+    this.eventBus.send("board.task.list", {}, function(error, message) {
+      callback(message.body);
     });
   };
 
